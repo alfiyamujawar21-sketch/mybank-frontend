@@ -1,0 +1,116 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, #173b78, #08b9e8);
+}
+
+.bank-container {
+    width: 360px;
+    padding: 25px 25px 35px;
+    background: linear-gradient(135deg, #4667a5, #258fc5);
+    border-radius: 2px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.bank-container h2 {
+    color: white;
+    margin-bottom: 15px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 45px;
+    margin-bottom: 20px;
+}
+
+.tabs button,
+.tabs a {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tabs .active {
+    background: #00e6d6;
+    color: #111;
+    padding: 9px 18px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    outline: none;
+}
+
+.main-button {
+    margin-top: 5px;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background: #00e6d6;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.main-button:hover {
+    background: #00cfc1;
+}
+.bank-container h3 {
+    color: #111;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.bank-container p {
+    margin: 6px 0;
+}
+
+#balance {
+    color: #111;
+    margin: 5px 0 15px;
+}
+
+#message {
+    color: white;
+    margin: 8px 0;
+}
+
+#fraudResult {
+    margin-top: 8px;
+    color: #111;
+}
+
+hr {
+    margin: 15px 0;
+    border: 0;
+    border-top: 1px solid white;
+}
+
+.bank-container .main-button:last-child {
+    margin-top: 10px;
+}
