@@ -2,21 +2,39 @@
 const registerForm = document.getElementById("registerForm");
 
 if (registerForm) {
-    registerForm.addEventListener("submit", function(event) {
+    registerForm.addEventListener("submit", async function(event) {
         event.preventDefault();
 
         const username = document.getElementById("registerUsername").value.trim();
         const password = document.getElementById("registerPassword").value;
 
-        localStorage.setItem("username", username);
-        localStorage.setItem("password", password);
+        try {
+            const response = await fetch("http://127.0.0.1:5000/api/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            });
 
-        document.getElementById("registerMessage").textContent =
-            "✅ Registration successful!";
+            const data = await response.json();
 
-        setTimeout(function() {
-            window.location.href = "index.html";
-        }, 1500);
+            document.getElementById("registerMessage").textContent =
+                data.message;
+
+            if (response.ok) {
+                setTimeout(function() {
+                    window.location.href = "index.html";
+                }, 1500);
+            }
+
+        } catch (error) {
+            document.getElementById("registerMessage").textContent =
+                "❌ Backend connection failed.";
+        }
     });
 }
 
@@ -25,19 +43,34 @@ if (registerForm) {
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
-    loginForm.addEventListener("submit", function(event) {
+    loginForm.addEventListener("submit", async function(event) {
         event.preventDefault();
 
         const username = document.getElementById("username").value.trim();
         const password = document.getElementById("password").value;
 
-        const savedUsername = localStorage.getItem("username");
-        const savedPassword = localStorage.getItem("password");
+        try {
+            const response = await fetch("http://127.0.0.1:5000/api/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            });
 
-        if (username === savedUsername && password === savedPassword) {
-            window.location.href = "wallet.html";
-        } else {
-            alert("Invalid username or password");
+            const data = await response.json();
+
+            if (response.ok) {
+                window.location.href = "wallet.html";
+            } else {
+                alert(data.message);
+            }
+
+        } catch (error) {
+            alert("❌ Backend connection failed.");
         }
     });
 }
@@ -51,6 +84,7 @@ const balanceElement = document.getElementById("balance");
 if (balanceElement) {
     balanceElement.textContent = "₹" + balance;
 }
+
 
 function loadMoney() {
     const amount = Number(document.getElementById("amount").value);
@@ -72,9 +106,12 @@ function loadMoney() {
     document.getElementById("amount").value = "";
 }
 
+
 function logout() {
     window.location.href = "index.html";
 }
+
+
 function checkFraud() {
 
     const amount = Number(document.getElementById("fraudAmount").value);
